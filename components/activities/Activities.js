@@ -1,19 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Activity from './Activity';
 import mockData from '../../MOCK_DATA.json';
 import tw from 'tailwind-styled-components';
-import { v4 as uuidv4 } from 'uuid';
+import AddNew from './AddNew';
 
-const Activities = () => {
+const Activities = ({ activities }) => {
   return (
     <Wrapper>
-      {mockData.map((activity) => {
-        return <Activity activity={activity} key={uuidv4()} />;
-      })}
+      {activities &&
+        activities.map((activity, i) => (
+          <Activity activity={activity} key={i} />
+        ))}
+      <AddNew />
     </Wrapper>
   );
 };
 
 export default Activities;
 
-const Wrapper = tw.div``;
+const Wrapper = tw.div`
+grid grid-cols-5 gap-1 bg-slate-50
+`;
