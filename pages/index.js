@@ -1,48 +1,60 @@
-import Head from 'next/head';
-import styles from '../styles/Home.module.css';
-import React, { useState, useEffect } from 'react';
+import { onAuthStateChanged } from 'firebase/auth';
+import { useRouter } from 'next/router';
+import React, { useEffect } from 'react';
 import tw from 'tailwind-styled-components';
 import Activities from '../components/activities/Activities';
-import { getDocs, addDoc } from 'firebase/firestore/lite';
-import { getAll } from '../firebase-config';
-
-// export async function getStaticProps() {
-//   //fetch data here
-//   let activities = {};
-//   try {
-//     getAll().then((data) => {
-//       activities = data;
-//     });
-//   } catch (error) {
-//     console.log('Error getting documents: ', error);
-//   }
-
-//   return {
-//     props: {
-//       activities: { activities },
-//     },
-//     revalidate: 10,
-//   };
-// }
+import { db, auth, getAll } from 'firebase-config';
+import { useStateValue } from 'store/StateProvider';
+import { useCollectionData, useCollection } from 'react-firebase-hooks/firestore';
+import { getFirestore, collection } from 'firebase/firestore';
 
 export default function Home() {
-  const [activities, setActivities] = useState();
+  const [{ userInfo }, dispatch] = useStateValue();
+  const router = useRouter();
+
+  // const [activities, loading, error, snapshot] = useCollectionData(collection(db, 'activities'));
+
+  const [activities, loading, error] = useCollection(collection(db, 'activities'));
+
+  // console.log(snapshot);
+  // console.log('activities', activities);
 
   useEffect(() => {
-    getAll.then((data) => {
-      setActivities(data);
+    return onAuthStateChanged(auth, (user) => {
+      if (user) {
+        dispatch({
+          type: 'UPDATE_USER',
+          item: {
+            name: user.displayName,
+            photoUrl: user.photoURL,
+            email: user.email,
+            uid: user.uid,
+          },
+        });
+      } else {
+        dispatch({
+          action: 'UPDATE_USER',
+          item: null,
+        });
+        router.push('./login');
+      }
     });
-  }, []);
+  }, [router, dispatch]);
 
   return (
     <>
-      <Head>
-        <title>hangout</title>
-        <meta name='description' content='something' />
-      </Head>
-      <Activities activities={activities} />
+      <Activities activities={activities && activities.docs} />
     </>
   );
 }
+
+// export async function getServerSideProps() {
+//   //fetch data here
+//   return {
+//     props: {
+//       activities: await getAll,
+//     },
+//   };
+// }
 
 const Wrapper = tw.div``;

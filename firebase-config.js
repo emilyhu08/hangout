@@ -1,15 +1,18 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app';
-import { GoogleAuthProvider, getAuth } from 'firebase/auth';
+import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 import {
-  getFirestore,
-  collection,
-  getDocs,
-  getDoc,
-  deleteDoc,
   addDoc,
+  collection,
+  deleteDoc,
   doc,
+  getDoc,
+  getDocs,
+  getFirestore,
+  setDoc,
+  updateDoc,
 } from 'firebase/firestore';
+import { getStorage } from 'firebase/storage';
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -22,14 +25,17 @@ const firebaseConfig = {
   appId: process.env.appId,
 };
 
-// init Firebase
-initializeApp(firebaseConfig);
+const firebaseApp = initializeApp(firebaseConfig);
 
-// init service
-const db = getFirestore();
+const db = getFirestore(firebaseApp);
 
-// collection ref
+const storage = getStorage(firebaseApp);
+
 const colRef = collection(db, 'activities');
+
+const provider = new GoogleAuthProvider();
+
+const auth = getAuth();
 
 const getAll = getDocs(colRef).then((snapshot) => {
   let activities = [];
@@ -38,16 +44,30 @@ const getAll = getDocs(colRef).then((snapshot) => {
   });
   return activities;
 });
-const addActivity = async (activity) => {
-  await addDoc(collection(db, 'activities'), activity);
+
+const getOne = async (col, id) => {
+  const docRef = doc(db, col, id);
+  const docSnap = await getDoc(docRef);
+  return docSnap.data();
 };
 
-const deleteActivity = async () => {
-  await deleteDoc(doc(db, 'activities', 'DC'));
+const addOne = async (col, data) => {
+  await addDoc(collection(db, col), data, { merge: true });
 };
 
-const provider = new GoogleAuthProvider();
+const setOne = async (col, data, id) => {
+  await setDoc(collection(db, col, id), data);
+};
 
-const auth = getAuth();
+const deleteOne = async (col, id) => {
+  await deleteDoc(doc(db, col, id));
+};
 
-export { provider, auth, getAll, addActivity, deleteActivity };
+const updateOne = async (col, data, field) => {
+  const docRef = doc(db, col, field);
+  setDoc(docRef, data);
+
+  await updateDoc(docRef, data);
+};
+
+export { db, provider, auth, getAll, storage, addOne, setOne, deleteOne, getOne, updateOne };
