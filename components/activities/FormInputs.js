@@ -4,8 +4,9 @@ import { getDownloadURL, ref, uploadBytes, uploadBytesResumable } from 'firebase
 import moment from 'moment';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { useStateValue } from 'store/StateProvider';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import ImgUpload from '../styled/ImgUpload';
+import { auth } from '/firebase-config';
 
 const layout = {
   labelCol: {
@@ -42,7 +43,7 @@ const normFile = (e) => {
 
 const FormInputs = ({ handleClose }) => {
   const [imageList, setImageList] = useState([]);
-  const [{ userInfo }, dispatch] = useStateValue();
+  const [user] = useAuthState(auth);
   const router = useRouter();
 
   const onFinish = (values) => {
@@ -63,9 +64,9 @@ const FormInputs = ({ handleClose }) => {
           images = [...images, url];
         })
         .then(() => {
-          if (userInfo.uid) {
+          if (user.uid) {
             let activityObj = {
-              userId: userInfo.uid,
+              userId: user.uid,
               activity: values.user.name,
               description: values.user.description,
               eventDate: moment(values.date).format('LLL'),

@@ -1,26 +1,34 @@
-import React, { useEffect } from 'react';
-import tw from 'tailwind-styled-components';
-import { useRouter } from 'next/router';
-import { signInWithPopup, onAuthStateChanged } from 'firebase/auth';
-import { auth, provider } from '../../firebase-config';
 import 'antd/dist/antd.css';
-import { Form, Input, Button, Checkbox } from 'antd';
+import { signInWithPopup } from 'firebase/auth';
+import { useRouter } from 'next/router';
+import React from 'react';
+import { useStateValue } from 'store/StateProvider';
+import tw from 'tailwind-styled-components';
+import { auth, provider } from '/firebase-config';
 
 const Login = () => {
+  const [{ userInfo }, dispatch] = useStateValue();
   const router = useRouter();
 
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
+  const handleRedirect = () => {
+    signInWithPopup(auth, provider).then((result) => {
+      if (result.user) {
+        dispatch({
+          type: 'UPDATE_USER',
+          item: result.user,
+        });
         router.push('/');
       }
     });
-  }, [router]);
+  };
 
   return (
     <Wrapper>
-      <Logo src='https://firebasestorage.googleapis.com/v0/b/hangout-28976.appspot.com/o/logos%2Fhangout_lg.svg?alt=media&token=ce17a0a7-f490-4cc8-8175-2501b0bae2d1' alt='logo' />
-      <LoginButton onClick={() => signInWithPopup(auth, provider)}>Sign In With Google</LoginButton>
+      <Logo
+        src='https://firebasestorage.googleapis.com/v0/b/hangout-28976.appspot.com/o/logos%2Fhangout_lg.svg?alt=media&token=ce17a0a7-f490-4cc8-8175-2501b0bae2d1'
+        alt='logo'
+      />
+      <LoginButton onClick={handleRedirect}>Sign In With Google</LoginButton>
     </Wrapper>
   );
 };

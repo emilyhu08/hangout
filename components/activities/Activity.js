@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import tw from 'tailwind-styled-components';
 import ActivityDetail from './ActivityDetail';
+import { message, Button, Space } from 'antd';
 
 const Activity = ({ activity }) => {
   const router = useRouter();
@@ -18,8 +19,18 @@ const Activity = ({ activity }) => {
     setIsVisible(false);
   };
 
-  // const showDetailsHandler = () => {
-  //   router.push('/activity/' + activity.id);
+  const redirectToChat = () => {
+    router.push('/chat/');
+    handleClose();
+  };
+
+  const handleJoin = () => {
+    handleClose();
+    message.success('Request Sent!');
+  };
+
+  // const redirectToMessage = () => {
+  //   router.push('/message/' + activity.id);
   //   setSelected(activity);
   // };
 
@@ -46,7 +57,12 @@ const Activity = ({ activity }) => {
         title={activity.activity}
         footer={null}
         centered>
-        <ActivityDetail handleClose={handleClose} activity={activity} />
+        <ActivityDetail
+          handleClose={handleClose}
+          handleJoin={handleJoin}
+          redirectToChat={redirectToChat}
+          activity={activity}
+        />
       </Modal>
     </Wrapper>
   );

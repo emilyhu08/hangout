@@ -1,8 +1,8 @@
-import tw from 'tailwind-styled-components';
-import React, { useState } from 'react';
 import moment from 'moment';
+import React from 'react';
+import tw from 'tailwind-styled-components';
 
-const ActivityDetail = ({ activity, handleClose }) => {
+const ActivityDetail = ({ activity, handleClose, redirectToChat, handleJoin }) => {
   return (
     <Wrapper>
       <Image src={activity.imgUrls[0]} alt='activity image'></Image>
@@ -16,8 +16,8 @@ const ActivityDetail = ({ activity, handleClose }) => {
         <address>{activity.location}</address>
         <div>{activity.description}</div>
       </Info>
-      <Message onClick={handleClose}>Message Host</Message>
-      <Join onClick={handleClose}>Request To Join</Join>
+      <Message onClick={redirectToChat}>Message Host</Message>
+      <Join onClick={handleJoin}>Request To Join</Join>
     </Wrapper>
   );
 };

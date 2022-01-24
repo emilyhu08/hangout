@@ -1,5 +1,3 @@
-import React, { useEffect } from 'react';
-import { useRouter } from 'next/router';
 import Detail from '../../components/activities/Detail';
 import { getAll, getOne } from '../../firebase-config';
 

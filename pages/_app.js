@@ -1,12 +1,11 @@
 import 'antd/dist/antd.css';
+import Layout from 'components/layout/Layout';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import React from 'react';
-import 'tailwindcss/tailwind.css';
-import Layout from 'components/layout/Layout';
 import reducer, { initialState } from 'store/Reducer';
 import { StateProvider } from 'store/StateProvider';
 import 'styles/globals.css';
+import 'tailwindcss/tailwind.css';
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();

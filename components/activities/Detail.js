@@ -1,4 +1,3 @@
-import React from 'react';
 import tw from 'tailwind-styled-components';
 
 const Detail = ({ activity }) => {
@@ -6,15 +5,15 @@ const Detail = ({ activity }) => {
     <Wrapper>
       <Image src={activity.activityImgUrl} alt='activity image'></Image>
       <Info>
-      <div>{activity.activity}</div>
-      <div>{activity.category}</div>
-      <div>{activity.postDate}</div>
-      <div>{activity.eventDate}</div>
-      <div>{activity.firstName}</div>
-      <div>{activity.lastName}</div>
-      <Avatar src={activity.userAvatarUrl} alt='avatar'></Avatar>
-      <address>{activity.location}</address>
-      <div>{activity.description}</div>
+        <div>{activity.activity}</div>
+        <div>{activity.category}</div>
+        <div>{activity.postDate}</div>
+        <div>{activity.eventDate}</div>
+        <div>{activity.firstName}</div>
+        <div>{activity.lastName}</div>
+        <Avatar src={activity.userAvatarUrl} alt='avatar'></Avatar>
+        <address>{activity.location}</address>
+        <div>{activity.description}</div>
       </Info>
     </Wrapper>
   );

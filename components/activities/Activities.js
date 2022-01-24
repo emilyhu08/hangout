@@ -3,9 +3,10 @@ import { useStateValue } from 'store/StateProvider';
 import tw from 'tailwind-styled-components';
 import Activity from './Activity';
 import AddNew from './AddNew';
+import { auth } from 'firebase-config';
 
 const Activities = ({ activities }) => {
-  const [{ search }, dispatch] = useStateValue();
+  const [{ search, userInfo }, dispatch] = useStateValue();
   const [filterActivities, setFilterActivities] = useState([]);
 
   useEffect(() => {
@@ -27,7 +28,7 @@ const Activities = ({ activities }) => {
             <Activity activity={{ ...activity.data(), id: activity.id }} key={activity.id} />
           ))}
       </Wrapper>
-      <AddNew />
+      {userInfo ? <AddNew /> : null}
     </>
   );
 };

@@ -1,19 +1,63 @@
+import { Dropdown, Menu } from 'antd';
+import { auth } from 'firebase-config';
 import { signOut } from 'firebase/auth';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
-import tw from 'tailwind-styled-components';
-import { auth } from 'firebase-config';
 import { useStateValue } from 'store/StateProvider';
-import Search from './Search';
+import tw from 'tailwind-styled-components';
+import SearchBar from './SearchBar';
 
 const Nav = () => {
-  const [{ userInfo }, dispatch] = useStateValue();
   const router = useRouter();
+  const [{ userInfo }, dispatch] = useStateValue();
 
-  function showProfileHandler() {
-    router.push('/user/' + '22');
-  }
+  const handleRedirect = () => {
+    if (userInfo) router.push('/chat');
+    else router.push('/login');
+  };
+
+  const handleSignOut = () => {
+    signOut(auth);
+    dispatch({
+      type: 'UPDATE_USER',
+      item: null,
+    });
+    router.push('/');
+  };
+
+  const handleLogin = () => {
+    router.push('/login');
+  };
+
+  const handleProfile = () => {
+    router.push('/user/' + userInfo.uid);
+  };
+
+  console.log(userInfo);
+
+  const menu = (
+    <Menu>
+      <Menu.Item key='1' onClick={handleProfile}>
+        Profile
+      </Menu.Item>
+      <Menu.Item key='2' onClick={handleRedirect}>
+        Messages
+      </Menu.Item>
+      <Menu.Item key='3' onClick={handleSignOut}>
+        Sign Out
+      </Menu.Item>
+    </Menu>
+  );
+
+  const menuSignup = (
+    <Menu>
+      <Menu.Item key='4' onClick={handleLogin}>
+        Login
+      </Menu.Item>
+      <Menu.Item key='5'>Sign Up</Menu.Item>
+    </Menu>
+  );
 
   return (
     <Wrapper>
@@ -23,12 +67,24 @@ const Nav = () => {
           alt='logo'
         />
       </Link>
-      <Search />
-      <Avatar
-        src={userInfo && userInfo.photoUrl}
-        alt='avatar'
-        onClick={showProfileHandler}></Avatar>
-      <button onClick={() => signOut(auth)}>Signout</button>
+      {router.asPath === '/' ? <SearchBar /> : null}
+
+      {userInfo ? (
+        <UserInfo>
+          <Name>{userInfo.displayName}</Name>
+          <Dropdown overlay={menu}>
+            <Avatar src={userInfo && userInfo.photoURL} alt='avatar' />
+          </Dropdown>
+        </UserInfo>
+      ) : (
+        <>
+          <Dropdown overlay={menuSignup}>
+            <Avatar
+              src='https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max'
+              alt='avatar'></Avatar>
+          </Dropdown>
+        </>
+      )}
     </Wrapper>
   );
 };
@@ -37,8 +93,10 @@ export default Nav;
 
 const Wrapper = tw.div`flex justify-between items-center mt-3 mb-6`;
 
-const Logo = tw.img`ml-3 w-20 cursor-pointer`;
+const UserInfo = tw.div`flex justify-between items-center`;
 
-const Name = tw.div`text-1xl`;
+const Logo = tw.img`flex-none ml-3 mr-10 w-20 cursor-pointer`;
 
-const Avatar = tw.img`w-9 h-9 rounded-full border border-grey-200 mr-3 `;
+const Avatar = tw.img`flex w-8 h-8 rounded-full`;
+
+const Name = tw.p`mr-5 text-slate-700`;

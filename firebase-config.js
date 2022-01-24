@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app';
-import { getAuth, GoogleAuthProvider } from 'firebase/auth';
+import { getAuth, GoogleAuthProvider, connectAuthEmulator } from 'firebase/auth';
 import {
   addDoc,
   collection,
@@ -11,8 +11,10 @@ import {
   getFirestore,
   setDoc,
   updateDoc,
+  connectFirestoreEmulator,
+  enableIndexedDbPersistence,
 } from 'firebase/firestore';
-import { getStorage } from 'firebase/storage';
+import { getStorage, connectStorageEmulator } from 'firebase/storage';
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -27,15 +29,23 @@ const firebaseConfig = {
 
 const firebaseApp = initializeApp(firebaseConfig);
 
-const db = getFirestore(firebaseApp);
+const db = getFirestore();
 
-const storage = getStorage(firebaseApp);
+const storage = getStorage();
 
 const colRef = collection(db, 'activities');
 
 const provider = new GoogleAuthProvider();
 
 const auth = getAuth();
+
+connectFirestoreEmulator(db, 'localhost', 8080);
+
+connectStorageEmulator(storage, 'localhost', 9199);
+
+connectAuthEmulator(auth, 'http://localhost:9099');
+
+enableIndexedDbPersistence(db);
 
 const getAll = getDocs(colRef).then((snapshot) => {
   let activities = [];
