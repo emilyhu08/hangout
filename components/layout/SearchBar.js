@@ -14,7 +14,14 @@ const SearchBar = () => {
     });
   };
 
-  return <Search placeholder='input search text' onSearch={onSearch} style={{ width: 400 }} />;
+  return (
+    <Search
+      className='search'
+      placeholder='input search text'
+      onSearch={onSearch}
+      style={{ width: 400 }}
+    />
+  );
 };
 
 export default SearchBar;

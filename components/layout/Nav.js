@@ -7,10 +7,12 @@ import React from 'react';
 import { useStateValue } from 'store/StateProvider';
 import tw from 'tailwind-styled-components';
 import SearchBar from './SearchBar';
+import { SearchOutlined } from '@ant-design/icons';
 
 const Nav = () => {
   const router = useRouter();
   const [{ userInfo }, dispatch] = useStateValue();
+  const name = userInfo?.displayName.split(' ');
 
   const handleRedirect = () => {
     if (userInfo) router.push('/chat');
@@ -33,8 +35,6 @@ const Nav = () => {
   const handleProfile = () => {
     router.push('/user/' + userInfo.uid);
   };
-
-  console.log(userInfo);
 
   const menu = (
     <Menu>
@@ -67,13 +67,23 @@ const Nav = () => {
           alt='logo'
         />
       </Link>
-      {router.asPath === '/' ? <SearchBar /> : null}
+      {router.asPath === '/' ? (
+        <>
+          <SearchBar />
+        </>
+      ) : null}
 
       {userInfo ? (
         <UserInfo>
-          <Name>{userInfo.displayName}</Name>
+          <Name>Hi, {name[0]}</Name>
           <Dropdown overlay={menu}>
-            <Avatar src={userInfo && userInfo.photoURL} alt='avatar' />
+            <Avatar
+              src={
+                (userInfo && userInfo.photoURL) ||
+                'https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max'
+              }
+              alt='avatar'
+            />
           </Dropdown>
         </UserInfo>
       ) : (
@@ -95,7 +105,9 @@ const Wrapper = tw.div`flex justify-between items-center mt-3 mb-6`;
 
 const UserInfo = tw.div`flex justify-between items-center`;
 
-const Logo = tw.img`flex-none ml-3 mr-10 w-20 cursor-pointer`;
+const Logo = tw.img`flex-none w-20 cursor-pointer`;
+
+const Search = tw.input`basis-1/4 h-8 w-100 border rounded-full`;
 
 const Avatar = tw.img`flex w-8 h-8 rounded-full`;
 

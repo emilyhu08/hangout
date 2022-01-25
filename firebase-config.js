@@ -1,20 +1,21 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app';
-import { getAuth, GoogleAuthProvider, connectAuthEmulator } from 'firebase/auth';
+import { connectAuthEmulator, getAuth, GoogleAuthProvider } from 'firebase/auth';
 import {
   addDoc,
   collection,
+  connectFirestoreEmulator,
   deleteDoc,
   doc,
+  enableIndexedDbPersistence,
   getDoc,
   getDocs,
   getFirestore,
   setDoc,
   updateDoc,
-  connectFirestoreEmulator,
-  enableIndexedDbPersistence,
 } from 'firebase/firestore';
-import { getStorage, connectStorageEmulator } from 'firebase/storage';
+import { getStorage } from 'firebase/storage';
+// import { getMessaging, getToken } from 'firebase/messaging';
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -39,9 +40,13 @@ const provider = new GoogleAuthProvider();
 
 const auth = getAuth();
 
-connectFirestoreEmulator(db, 'localhost', 8080);
+// const messaging = getMessaging();
 
-connectStorageEmulator(storage, 'localhost', 9199);
+// messaging.getToken({ vapidKey: process.env.messageToken }).then(() => {
+//   console.log('working');
+// });
+
+connectFirestoreEmulator(db, 'localhost', 8080);
 
 connectAuthEmulator(auth, 'http://localhost:9099');
 
