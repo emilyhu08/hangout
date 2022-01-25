@@ -12,7 +12,8 @@ const Activities = ({ activities }) => {
   useEffect(() => {
     if (search.length) {
       let searched = activities.filter((activity) => {
-        return activity.activity === search;
+        console.log(activity.data().activity, search);
+        return activity.data().activity.includes(search);
       });
       setFilterActivities(searched);
     } else {

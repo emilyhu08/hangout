@@ -11,7 +11,7 @@ const ChatMessage = ({ message }) => {
     <Wrapper>
       <div className={`message ${messageClass}`}>
         <Avatar
-          src={photoURL || 'https://api.adorable.io/avatars/23/abott@adorable.png'}
+          src={photoURL || 'https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max'}
           alt='alt'
         />
         <p>{text}</p>

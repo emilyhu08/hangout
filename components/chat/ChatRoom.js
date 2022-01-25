@@ -6,6 +6,7 @@ import ChatMessage from './ChatMessage';
 import { useStateValue } from 'store/StateProvider';
 import tw from 'tailwind-styled-components';
 import { useRouter } from 'next/router';
+import { v4 as uuidv4 } from 'uuid';
 
 const ChatRoom = () => {
   const [{ userInfo }, dispatch] = useStateValue();
@@ -14,7 +15,9 @@ const ChatRoom = () => {
   const messagesRef = collection(db, 'messages');
   const q = query(messagesRef, orderBy('createdAt'), limit(25));
 
-  const [messages] = useCollectionData(q, { idField: 'id' });
+  //const [messages] = useCollectionData(q, { idField: 'id' });
+
+  const [messages] = useCollectionData(messagesRef);
 
   const [formValue, setFormValue] = useState('');
 
@@ -40,22 +43,25 @@ const ChatRoom = () => {
 
   return (
     <Wrapper>
-      <main>
-        {messages && messages.map((msg) => <ChatMessage key={msg.id} message={msg} />)}
+      <Main>
+        {messages && messages.map((msg) => <ChatMessage key={uuidv4()} message={msg} />)}
         <span ref={dummy}></span>
-      </main>
+      </Main>
 
-      <form onSubmit={sendMessage}>
-        <input
-          value={formValue}
-          onChange={(e) => setFormValue(e.target.value)}
-          placeholder='say something nice'
-        />
+      <RoomList></RoomList>
+      <InputChat>
+        <form onSubmit={sendMessage}>
+          <input
+            value={formValue}
+            onChange={(e) => setFormValue(e.target.value)}
+            placeholder='say something nice'
+          />
 
-        <button type='submit' disabled={!formValue}>
-          🕊️
-        </button>
-      </form>
+          <button type='submit' disabled={!formValue}>
+            🕊️
+          </button>
+        </form>
+      </InputChat>
     </Wrapper>
   );
 };
@@ -64,8 +70,10 @@ export default ChatRoom;
 
 const Wrapper = tw.div`flex`;
 
-const RoomList = tw.div``;
+const Main = tw.div``;
 
-const Chats = tw.div``;
+const RoomList = tw.div`flex-1`;
 
-const InputChat = tw.div``;
+const Chats = tw.div`flex-1`;
+
+const InputChat = tw.div`flex-1`;

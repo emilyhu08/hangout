@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import { useStateValue } from 'store/StateProvider';
 import tw from 'tailwind-styled-components';
-import { auth, provider } from '/firebase-config';
+import { auth, provider, addOne } from '/firebase-config';
 
 const Login = () => {
   const [{ userInfo }, dispatch] = useStateValue();
@@ -17,26 +17,42 @@ const Login = () => {
           type: 'UPDATE_USER',
           item: result.user,
         });
+        addOne('users', {
+          name: result.user.displayName,
+          photoURL: result.user.photoURL,
+          email: result.user.email,
+          uid: result.user.uid,
+        });
         router.push('/');
       }
     });
   };
 
   return (
-    <Wrapper>
-      <Logo
-        src='https://firebasestorage.googleapis.com/v0/b/hangout-28976.appspot.com/o/logos%2Fhangout_lg.svg?alt=media&token=ce17a0a7-f490-4cc8-8175-2501b0bae2d1'
-        alt='logo'
-      />
-      <LoginButton onClick={handleRedirect}>Sign In With Google</LoginButton>
-    </Wrapper>
+    <div
+      className='grid place-items-center h-screen w-screen bg-repeat'
+      style={{
+        backgroundImage: `url(
+          'https://firebasestorage.googleapis.com/v0/b/hangout-28976.appspot.com/o/activities%2Fwowpatterns-export%20(3).png?alt=media&token=d323db7b-ce6b-45a0-b9f2-723e0ff4c7c4'
+        )`,
+        backgroundSize: '200px 200px',
+        backgroundColor: '#374151',
+      }}>
+      <Box>
+        <Logo
+          src='https://firebasestorage.googleapis.com/v0/b/hangout-28976.appspot.com/o/logos%2Fhangout_lg.svg?alt=media&token=ce17a0a7-f490-4cc8-8175-2501b0bae2d1'
+          alt='logo'
+        />
+        <LoginButton onClick={handleRedirect}>Sign In With Google</LoginButton>
+      </Box>
+    </div>
   );
 };
 
 export default Login;
 
-const Wrapper = tw.div`grid place-items-center h-screen w-screen`;
+const Box = tw.div`grid content-center p-20 shadow-md mb-20 rounded-xl bg-white`;
 
-const LoginButton = tw.button`text-3xl`;
+const Logo = tw.img`w-60 mb-5 `;
 
-const Logo = tw.img`w-60`;
+const LoginButton = tw.button`text-xl mt-5 bg-transparent hover:bg-slate-500 text-slate-700 font-semibold hover:text-white py-2 px-4 border border-slate-700 hover:border-transparent rounded`;

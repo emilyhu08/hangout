@@ -67,6 +67,9 @@ const FormInputs = ({ handleClose }) => {
           if (user.uid) {
             let activityObj = {
               userId: user.uid,
+              userAvatarUrl: user.photoURL,
+              userName: user.displayName,
+              userEmail: user.email,
               activity: values.user.name,
               description: values.user.description,
               eventDate: moment(values.date).format('LLL'),

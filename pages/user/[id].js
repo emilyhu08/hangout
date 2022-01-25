@@ -1,7 +1,8 @@
 import React from 'react';
-import Profile from '../../components/user/Profile';
+import Profile from 'components/user/Profile';
+import { useRouter } from 'next/router';
 
-const index = () => {
+const User = () => {
   return (
     <div>
       <Profile />
@@ -9,4 +10,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default User;

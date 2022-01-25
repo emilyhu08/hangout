@@ -40,8 +40,8 @@ const Activity = ({ activity }) => {
 
   return (
     <Wrapper>
-      <Image src={activity.imgUrls[0]} alt='activity image' onClick={showModal}></Image>
       <Title>{activity.activity}</Title>
+      <Image src={activity.imgUrls[0]} alt='activity image' onClick={showModal}></Image>
       <Content>{activity.category}</Content>
       <Content>{activity.eventDate}</Content>
       <Content>{activity.location}</Content>
@@ -74,7 +74,7 @@ const Wrapper = tw.div`relative card rounded m-2 p-2 bg-white  shadow-md  hover:
 
 const Image = tw.img`object-cover h-40 w-auto cursor-pointer`;
 
-const Title = tw.div`text-2xl`;
+const Title = tw.div`text-xl`;
 
 const Content = tw.article`prose prose-sm`;
 
