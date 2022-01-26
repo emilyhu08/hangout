@@ -1,14 +1,21 @@
 import { Badge, Descriptions } from 'antd';
-import { doc } from 'firebase/firestore';
+import { doc, collection, query, where } from 'firebase/firestore';
 import { db } from 'firebase-config';
-import { useDocumentData } from 'react-firebase-hooks/firestore';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { useRouter } from 'next/router';
+import { useState, useEffect } from 'react';
 
 const Profile = () => {
   const router = useRouter();
-  const path = router.asPath.split('/');
-  const id = path[path.length - 1];
-  const [user, loading, error, snapshot] = useDocumentData(doc(db, 'users', id));
+  const id = router.query.id;
+  const userRef = collection(db, 'users');
+  const [users] = useCollectionData(userRef);
+  const user =
+    users &&
+    users.find((user) => {
+      return user.uid === id;
+    });
+
   const userName = user?.name.split(' ');
 
   return (

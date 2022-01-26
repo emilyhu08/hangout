@@ -13,6 +13,8 @@ import {
   getFirestore,
   setDoc,
   updateDoc,
+  query,
+  where,
 } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 // import { getMessaging, getToken } from 'firebase/messaging';
@@ -60,8 +62,8 @@ const getAll = getDocs(colRef).then((snapshot) => {
   return activities;
 });
 
-const getOne = async (col, id) => {
-  const docRef = doc(db, col, id);
+const getOne = async (col, doc, id) => {
+  const docRef = doc(db, col, doc, id);
   const docSnap = await getDoc(docRef);
   return docSnap.data();
 };

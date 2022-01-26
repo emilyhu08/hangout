@@ -7,23 +7,20 @@ import React from 'react';
 import { useStateValue } from 'store/StateProvider';
 import tw from 'tailwind-styled-components';
 import SearchBar from './SearchBar';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 const Nav = () => {
   const router = useRouter();
-  const [{ userInfo }, dispatch] = useStateValue();
-  const name = userInfo?.displayName.split(' ');
+  const [user, loading] = useAuthState(auth);
+  const name = user?.displayName.split(' ');
 
   const handleRedirect = () => {
-    if (userInfo) router.push('/chat');
+    if (user) router.push('/chat');
     else router.push('/login');
   };
 
   const handleSignOut = () => {
     signOut(auth);
-    dispatch({
-      type: 'UPDATE_USER',
-      item: null,
-    });
     router.push('/');
   };
 
@@ -32,7 +29,7 @@ const Nav = () => {
   };
 
   const handleProfile = () => {
-    router.push('/user/' + userInfo.uid);
+    router.push('/user/' + user.uid);
   };
 
   const menu = (
@@ -58,7 +55,9 @@ const Nav = () => {
             alt='logo'
           />
         </Link>
-        <Title>hangout</Title>
+        <Link href='/' passHref>
+          <Title>hangout</Title>
+        </Link>
       </div>
       {router.asPath === '/' ? (
         <>
@@ -66,13 +65,13 @@ const Nav = () => {
         </>
       ) : null}
 
-      {userInfo ? (
+      {user ? (
         <UserInfo>
           <Name>Hi, {name[0]}</Name>
           <Dropdown overlay={menu}>
             <Avatar
               src={
-                (userInfo && userInfo.photoURL) ||
+                (user && user.photoURL) ||
                 'https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max'
               }
               alt='avatar'

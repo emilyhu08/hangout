@@ -81,6 +81,7 @@ const FormInputs = ({ handleClose }) => {
             addOne('activities', activityObj);
             handleClose();
             setImageList([]);
+            console.log(activityObj);
           } else {
             console.log('please log in first');
           }

@@ -1,4 +1,4 @@
-import { CloseOutlined, HeartOutlined } from '@ant-design/icons';
+import { CloseOutlined, HeartOutlined, MoreOutlined } from '@ant-design/icons';
 import { Modal } from 'antd';
 import { deleteOne } from 'firebase-config';
 import { useRouter } from 'next/router';
@@ -6,6 +6,8 @@ import React, { useState } from 'react';
 import tw from 'tailwind-styled-components';
 import ActivityDetail from './ActivityDetail';
 import { message, Button, Space } from 'antd';
+import moment from 'moment';
+import AvatarGroup from 'components/styled/AvatorGroup';
 
 const Activity = ({ activity }) => {
   const router = useRouter();
@@ -20,7 +22,7 @@ const Activity = ({ activity }) => {
   };
 
   const redirectToChat = () => {
-    router.push('/chat/');
+    router.push(`/chat/${activity.userId}`);
     handleClose();
   };
 
@@ -40,14 +42,17 @@ const Activity = ({ activity }) => {
 
   return (
     <Wrapper>
-      <Title>{activity.activity}</Title>
       <Image src={activity.imgUrls[0]} alt='activity image' onClick={showModal}></Image>
+      <Title>{activity.activity}</Title>
       <Content>{activity.category}</Content>
-      <Content>{activity.eventDate}</Content>
-      <Content>{activity.location}</Content>
-      <Like>
+      {/* <Content>Location: {activity.location}</Content> */}
+      <div className='flex items-center justify-between'>
+        <AvatarGroup activity={activity} />
+        <Slots>2 slots left!</Slots>
+      </div>
+      {/* <Like>
         <HeartOutlined className={`hover:scale-110`} />
-      </Like>
+      </Like> */}
       <Delete>
         <CloseOutlined onClick={handleDelete} />
       </Delete>
@@ -74,9 +79,11 @@ const Wrapper = tw.div`relative card rounded m-2 p-2 bg-white  shadow-md  hover:
 
 const Image = tw.img`object-cover h-40 w-auto cursor-pointer`;
 
-const Title = tw.div`text-xl`;
+const Title = tw.div`text-xl mt-1 mb-1`;
 
-const Content = tw.article`prose prose-sm`;
+const Content = tw.div`text-xs mt-2 mb-2`;
+
+const Slots = tw.div`text-xs ml-3`;
 
 const Delete = tw.div`absolute top-1 right-3 text-white drop-shadow-md hover:scale-110`;
 

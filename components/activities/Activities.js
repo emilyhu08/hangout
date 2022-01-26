@@ -4,15 +4,16 @@ import tw from 'tailwind-styled-components';
 import Activity from './Activity';
 import AddNew from './AddNew';
 import { auth } from 'firebase-config';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 const Activities = ({ activities }) => {
-  const [{ search, userInfo }, dispatch] = useStateValue();
+  const [{ search }, dispatch] = useStateValue();
+  const [user, loading] = useAuthState(auth);
   const [filterActivities, setFilterActivities] = useState([]);
 
   useEffect(() => {
     if (search.length) {
       let searched = activities.filter((activity) => {
-        console.log(activity.data().activity, search);
         return activity.data().activity.includes(search);
       });
       setFilterActivities(searched);
@@ -29,7 +30,7 @@ const Activities = ({ activities }) => {
             <Activity activity={{ ...activity.data(), id: activity.id }} key={activity.id} />
           ))}
       </Wrapper>
-      {userInfo ? <AddNew /> : null}
+      {user ? <AddNew /> : null}
     </>
   );
 };

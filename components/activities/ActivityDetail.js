@@ -12,12 +12,14 @@ const ActivityDetail = ({ activity, handleClose, redirectToChat, handleJoin }) =
       <Info>
         <div>{activity.category}</div>
         <div>posted {moment(activity.postDate).fromNow()}</div>
-        <div>{activity.eventDate}</div>
+        <Content>Event Date: {moment(activity.eventDate).format('L')}</Content>
+        <Content>Event Time: {moment(activity.eventDate).format('LT')}</Content>
+
         <div>{activity.firstName}</div>
         <div>{activity.lastName}</div>
 
         <div className='flex items-center'>
-          <Link href={`/user/ + ${activity.userId}`} passHref>
+          <Link href={`/user/${activity.userId}`} passHref>
             <Avatar
               src={
                 activity.userAvatarUrl ||
@@ -55,3 +57,5 @@ const Info = tw.div`grid grid-cols-1`;
 const Join = tw.button`bg-transparent hover:bg-slate-500 text-slate-700 font-semibold hover:text-white py-2 px-4 border border-slate-700 hover:border-transparent rounded`;
 
 const Message = tw.button`bg-transparent hover:bg-slate-500 text-slate-700 font-semibold hover:text-white py-2 px-4 border border-slate-700 hover:border-transparent rounded`;
+
+const Content = tw.article`text-xs`;

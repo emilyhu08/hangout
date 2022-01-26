@@ -1,6 +1,5 @@
 export const initialState = {
   search: '',
-  userInfo: null,
   activities: null,
 };
 
@@ -10,12 +9,6 @@ const reducer = (state, action) => {
       return {
         ...state,
         search: action.item,
-      };
-
-    case 'UPDATE_USER':
-      return {
-        ...state,
-        userInfo: action.item,
       };
 
     case 'ADD_TO_ACTIVITIES':

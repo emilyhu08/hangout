@@ -7,16 +7,11 @@ import tw from 'tailwind-styled-components';
 import { auth, provider, addOne } from '/firebase-config';
 
 const Login = () => {
-  const [{ userInfo }, dispatch] = useStateValue();
   const router = useRouter();
 
   const handleRedirect = () => {
     signInWithPopup(auth, provider).then((result) => {
       if (result.user) {
-        dispatch({
-          type: 'UPDATE_USER',
-          item: result.user,
-        });
         addOne('users', {
           name: result.user.displayName,
           photoURL: result.user.photoURL,
