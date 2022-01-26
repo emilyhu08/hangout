@@ -1,9 +1,9 @@
 import ChatRoom from 'components/chat/ChatRoom';
 import { v4 as uuidv4 } from 'uuid';
-import Room from 'components/chat/Room';
+import Rooms from 'components/chat/Rooms';
 
 const index = () => {
-  return <Room key={uuidv4()} />;
+  return <Rooms key={uuidv4()} />;
 };
 
 export default index;

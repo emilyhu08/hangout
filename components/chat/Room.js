@@ -1,57 +1,51 @@
-import { auth, db, addOne } from 'firebase-config';
+import { auth, db } from 'firebase-config';
+import { collection, query, where } from 'firebase/firestore';
+import { useRouter } from 'next/router';
+import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollection } from 'react-firebase-hooks/firestore';
-import { collection, query, where } from 'firebase/firestore';
-import Chat from './Chat';
 import tw from 'tailwind-styled-components';
+import getRecipientEmail from 'utils/getRecipientEmail';
 
-const Room = () => {
+const Room = ({ id, users }) => {
+  const router = useRouter();
   const [user] = useAuthState(auth);
-  const userChatRef = collection(db, 'chats');
+  const userRef = collection(db, 'users');
+  const queryUser = query(userRef, where('email', '==', getRecipientEmail(users, user)));
+  const [recipientSnapshot] = useCollection(queryUser);
 
-  const queryEmail = query(userChatRef, where('users', 'array-contains', user.email));
+  const recipient = recipientSnapshot?.docs?.[0]?.data();
+  const recipientEmail = getRecipientEmail(users, user);
 
-  const [chatsSnapshot] = useCollection(queryEmail);
-
-  const createChat = () => {
-    const input = prompt('enter email');
-
-    if (!input) return null;
-    if (!chatAlreadyExists(input) && input !== user.email) {
-      addOne('chats', {
-        users: [user.email, input],
-      });
-    }
-  };
-
-  const chatAlreadyExists = (recipientEmail) => {
-    chatsSnapshot?.docs.find((chat) =>
-      chat.data().users.find((user) => {
-        return (user === recipientEmail)?.length > 0;
-      })
-    );
+  const enterChat = () => {
+    router.push(`/chat/${id}`);
   };
 
   return (
-    <>
-      <Wrapper>
-        <Side>
-          {chatsSnapshot?.docs.map((chat) => {
-            return <Chat key={chat.id} id={chat.id} users={chat.data().users} />;
-          })}
-        </Side>
-        <Main>
-          <button onClick={createChat}>Start Chat</button>
-        </Main>
+    <div>
+      <Wrapper onClick={enterChat}>
+        {recipient ? (
+          <Avatar
+            src={
+              recipient?.photoURL ||
+              'https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max'
+            }
+            alt='avatar'></Avatar>
+        ) : (
+          <Avatar
+            src='https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max'
+            alt='avatar'></Avatar>
+        )}
+        <Name>{recipientEmail}</Name>
       </Wrapper>
-    </>
+    </div>
   );
 };
 
 export default Room;
 
-const Wrapper = tw.div`flex`;
+const Wrapper = tw.div`flex items-center p-5 shadow-md mb-5 rounded-lg`;
 
-const Main = tw.div`flex-1`;
+const Name = tw.div`word-break`;
 
-const Side = tw.div`flex-1`;
+const Avatar = tw.img`flex w-8 h-8 rounded-full mr-3 cursor-pointer`;
