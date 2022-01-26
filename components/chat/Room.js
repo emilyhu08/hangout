@@ -18,27 +18,25 @@ const Room = ({ id, users }) => {
   const recipientEmail = getRecipientEmail(users, user);
 
   const enterChat = () => {
-    router.push(`/chat/${id}`);
+    router.push(`/message/${id}`);
   };
 
   return (
-    <div>
-      <Wrapper onClick={enterChat}>
-        {recipient ? (
-          <Avatar
-            src={
-              recipient?.photoURL ||
-              'https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max'
-            }
-            alt='avatar'></Avatar>
-        ) : (
-          <Avatar
-            src='https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max'
-            alt='avatar'></Avatar>
-        )}
-        <Name>{recipientEmail}</Name>
-      </Wrapper>
-    </div>
+    <Wrapper onClick={enterChat}>
+      {recipient ? (
+        <Avatar
+          src={
+            recipient?.photoURL ||
+            'https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max'
+          }
+          alt='avatar'></Avatar>
+      ) : (
+        <Avatar
+          src='https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max'
+          alt='avatar'></Avatar>
+      )}
+      <Name>{recipientEmail}</Name>
+    </Wrapper>
   );
 };
 

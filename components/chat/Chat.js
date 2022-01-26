@@ -1,15 +1,16 @@
 import { auth, db } from 'firebase-config';
 import { addDoc, collection, limit, orderBy, query, serverTimestamp } from 'firebase/firestore';
-import React, { useRef, useState } from 'react';
-import { useCollectionData } from 'react-firebase-hooks/firestore';
-import ChatMessage from './ChatMessage';
-import { useStateValue } from 'store/StateProvider';
-import tw from 'tailwind-styled-components';
 import { useRouter } from 'next/router';
+import React, { useRef, useState } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
+import tw from 'tailwind-styled-components';
 import { v4 as uuidv4 } from 'uuid';
+import ChatMessage from './ChatMessage';
+import Rooms from './Rooms';
 
-const ChatRoom = () => {
-  const [{ userInfo }, dispatch] = useStateValue();
+const Chat = () => {
+  const [user] = useAuthState(auth);
   const router = useRouter();
   const dummy = useRef();
   const messagesRef = collection(db, 'messages');
@@ -17,7 +18,7 @@ const ChatRoom = () => {
 
   //const [messages] = useCollectionData(q, { idField: 'id' });
 
-  const [messages] = useCollectionData(messagesRef);
+  const [messages] = useCollectionData(q);
 
   const [formValue, setFormValue] = useState('');
 
@@ -28,7 +29,7 @@ const ChatRoom = () => {
   const sendMessage = async (e) => {
     e.preventDefault();
 
-    const { uid, photoURL } = userInfo;
+    const { uid, photoURL } = user;
 
     await addDoc(messagesRef, {
       text: formValue,
@@ -43,37 +44,33 @@ const ChatRoom = () => {
 
   return (
     <Wrapper>
+      <SideBar>
+        <Rooms />
+      </SideBar>
       <Main>
-        {messages && messages.map((msg) => <ChatMessage key={uuidv4()} message={msg} />)}
-        <span ref={dummy}></span>
-      </Main>
-
-      <RoomList></RoomList>
-      <InputChat>
+        <Chats>
+          {messages && messages.map((msg) => <ChatMessage key={uuidv4()} message={msg} />)}
+          <span ref={dummy}></span>
+        </Chats>
         <form onSubmit={sendMessage}>
-          <input
+          <Input
             value={formValue}
             onChange={(e) => setFormValue(e.target.value)}
-            placeholder='say something nice'
-          />
-
-          <button type='submit' disabled={!formValue}>
-            🕊️
-          </button>
+            placeholder='enter your message here'></Input>
         </form>
-      </InputChat>
+      </Main>
     </Wrapper>
   );
 };
 
-export default ChatRoom;
+export default Chat;
 
-const Wrapper = tw.div`flex`;
+const Wrapper = tw.div`flex rounded-3xl`;
 
-const Main = tw.div``;
+const SideBar = tw.div`flex-nowrap flex-col p-5 w-80 bg-white rounded-3xl`;
 
-const RoomList = tw.div`flex-1`;
+const Main = tw.div`ml-5 w-full rounded-3xl truncate `;
 
-const Chats = tw.div`flex-1`;
+const Input = tw.input`h-40 p-10 w-full mt-5 rounded-3xl self-baseline bg-white`;
 
-const InputChat = tw.div`flex-1`;
+const Chats = tw.div`h-80 p-10 rounded-3xl self-baseline bg-white overflow-y-scroll`;

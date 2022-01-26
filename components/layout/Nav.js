@@ -15,7 +15,7 @@ const Nav = () => {
   const name = user?.displayName.split(' ');
 
   const handleRedirect = () => {
-    if (user) router.push('/chat');
+    if (user) router.push('/chat/0');
     else router.push('/login');
   };
 

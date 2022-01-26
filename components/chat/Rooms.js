@@ -2,10 +2,9 @@ import { addOne, auth, db } from 'firebase-config';
 import { collection, query, where } from 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollection } from 'react-firebase-hooks/firestore';
-import tw from 'tailwind-styled-components';
 import Room from './Room';
 
-const Rooms = () => {
+const SideBar = () => {
   const [user] = useAuthState(auth);
   const userChatRef = collection(db, 'chats');
 
@@ -34,32 +33,14 @@ const Rooms = () => {
 
   return (
     <>
-      <Wrapper>
-        <SideBar>
-          {chatsSnapshot?.docs.map((chat) => {
-            return <Room key={chat.id} id={chat.id} users={chat.data().users} />;
-          })}
-        </SideBar>
-        <Main>
-          <Chats>
-            <button onClick={createChat}>Start Chat</button>
-            <h1>HIIIIIII</h1>
-          </Chats>
-          <Input placeholder='enter your message here'></Input>
-        </Main>
-      </Wrapper>
+      <>
+        <button onClick={createChat}>Start Chat</button>
+      </>
+      {chatsSnapshot?.docs.map((chat) => {
+        return <Room key={chat.id} id={chat.id} users={chat.data().users} />;
+      })}
     </>
   );
 };
 
-export default Rooms;
-
-const Wrapper = tw.div`flex rounded-3xl`;
-
-const SideBar = tw.div`flex-nowrap flex-col p-5 w-80 bg-white rounded-3xl`;
-
-const Main = tw.div`ml-5 w-full rounded-3xl`;
-
-const Input = tw.input`h-40 p-10 w-full mt-5 rounded-3xl self-baseline bg-white`;
-
-const Chats = tw.div`h-80 p-10 rounded-3xl self-baseline bg-white`;
+export default SideBar;
