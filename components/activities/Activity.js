@@ -79,7 +79,7 @@ const Wrapper = tw.div`relative card rounded m-2 p-2 bg-white  shadow-md  hover:
 
 const Image = tw.img`object-cover h-40 w-auto cursor-pointer`;
 
-const Title = tw.div`text-xl mt-1 mb-1`;
+const Title = tw.div`text-md mt-1 mb-1 truncate`;
 
 const Content = tw.div`text-xs mt-2 mb-2`;
 
