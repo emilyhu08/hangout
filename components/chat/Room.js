@@ -18,7 +18,7 @@ const Room = ({ id, users }) => {
   const recipientEmail = getRecipientEmail(users, user);
 
   const enterChat = () => {
-    router.push(`/message/${id}`);
+    router.push(`/chat/${id}`);
   };
 
   return (
@@ -35,7 +35,7 @@ const Room = ({ id, users }) => {
           src='https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max'
           alt='avatar'></Avatar>
       )}
-      <Name>{recipientEmail}</Name>
+      <Name>{recipient.name}</Name>
     </Wrapper>
   );
 };

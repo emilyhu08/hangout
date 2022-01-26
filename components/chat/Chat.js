@@ -1,39 +1,72 @@
 import { auth, db } from 'firebase-config';
-import { addDoc, collection, limit, orderBy, query, serverTimestamp } from 'firebase/firestore';
+import {
+  addDoc,
+  collection,
+  limit,
+  orderBy,
+  query,
+  serverTimestamp,
+  where,
+} from 'firebase/firestore';
 import { useRouter } from 'next/router';
 import React, { useRef, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { useCollection, useCollectionData } from 'react-firebase-hooks/firestore';
 import tw from 'tailwind-styled-components';
+import getRecipientEmail from 'utils/getRecipientEmail';
 import { v4 as uuidv4 } from 'uuid';
 import ChatMessage from './ChatMessage';
 import Rooms from './Rooms';
 
 const Chat = () => {
   const [user] = useAuthState(auth);
+  const userChatRef = collection(db, 'chats');
+
+  const queryEmail = user && query(userChatRef, where('users', 'array-contains', user.email));
+
+  const [chatsSnapshot] = useCollection(queryEmail);
+
+  const users = chatsSnapshot?.docs.map((chat) => chat.data().users);
+
+  const recipientEmail = getRecipientEmail(users, user);
+
+  // const createChat = () => {
+  //   const input = prompt('enter email');
+
+  //   if (!input) return null;
+  //   if (!chatAlreadyExists(input) && input !== user.email) {
+  //     addOne('chats', {
+  //       users: [user.email, input],
+  //     });
+  //   }
+  // };
+
   const router = useRouter();
   const dummy = useRef();
   const messagesRef = collection(db, 'messages');
-  const q = query(messagesRef, orderBy('createdAt'), limit(25));
-
-  //const [messages] = useCollectionData(q, { idField: 'id' });
+  const q =
+    user &&
+    recipientEmail &&
+    query(
+      messagesRef,
+      // where('users', 'array-contains-any', [user.email, recipientEmail[0]]),
+      orderBy('createdAt'),
+      limit(25)
+    );
 
   const [messages] = useCollectionData(q);
 
   const [formValue, setFormValue] = useState('');
 
-  const redirectToHome = () => {
-    router.push('/');
-  };
-
   const sendMessage = async (e) => {
     e.preventDefault();
 
-    const { uid, photoURL } = user;
+    const { uid, photoURL, email } = user;
 
     await addDoc(messagesRef, {
       text: formValue,
       createdAt: serverTimestamp(),
+      email,
       uid,
       photoURL,
     });
