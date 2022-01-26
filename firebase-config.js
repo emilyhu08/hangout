@@ -48,11 +48,11 @@ const auth = getAuth();
 //   console.log('working');
 // });
 
-connectFirestoreEmulator(db, 'localhost', 8080);
+// connectFirestoreEmulator(db, 'localhost', 8080);
 
-connectAuthEmulator(auth, 'http://localhost:9099');
+// connectAuthEmulator(auth, 'http://localhost:9099');
 
-enableIndexedDbPersistence(db);
+// enableIndexedDbPersistence(db);
 
 const getAll = getDocs(colRef).then((snapshot) => {
   let activities = [];
