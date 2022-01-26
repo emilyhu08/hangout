@@ -1,10 +1,10 @@
 import 'antd/dist/antd.css';
 import { signInWithPopup } from 'firebase/auth';
+import { doc, setDoc } from 'firebase/firestore';
 import { useRouter } from 'next/router';
 import React from 'react';
-import { useStateValue } from 'store/StateProvider';
 import tw from 'tailwind-styled-components';
-import { auth, provider, addOne } from '/firebase-config';
+import { auth, db, provider } from '/firebase-config';
 
 const Login = () => {
   const router = useRouter();
@@ -12,12 +12,16 @@ const Login = () => {
   const handleRedirect = () => {
     signInWithPopup(auth, provider).then((result) => {
       if (result.user) {
-        addOne('users', {
-          name: result.user.displayName,
-          photoURL: result.user.photoURL,
-          email: result.user.email,
-          uid: result.user.uid,
-        });
+        const usersRef = doc(db, 'users', result.user.uid);
+        setDoc(
+          usersRef,
+          {
+            name: result.user.displayName,
+            photoURL: result.user.photoURL,
+            email: result.user.email,
+          },
+          { merge: true }
+        );
         router.push('/');
       }
     });

@@ -23,26 +23,20 @@ const Room = ({ id, users }) => {
 
   return (
     <Wrapper onClick={enterChat}>
-      {recipient ? (
-        <Avatar
-          src={
-            recipient?.photoURL ||
-            'https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max'
-          }
-          alt='avatar'></Avatar>
-      ) : (
-        <Avatar
-          src='https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max'
-          alt='avatar'></Avatar>
-      )}
-      <Name>{recipient.name}</Name>
+      <Avatar
+        src={
+          recipient?.photoURL ||
+          'https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max'
+        }
+        alt='avatar'></Avatar>
+      <Name>{recipient?.name}</Name>
     </Wrapper>
   );
 };
 
 export default Room;
 
-const Wrapper = tw.div`flex items-center p-5 shadow-md mb-5 rounded-lg`;
+const Wrapper = tw.div`flex items-center p-5 shadow-md mb-5 rounded-lg `;
 
 const Name = tw.div`word-break`;
 

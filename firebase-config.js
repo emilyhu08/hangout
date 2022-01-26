@@ -73,7 +73,7 @@ const addOne = async (col, data) => {
 };
 
 const setOne = async (col, data, id) => {
-  await setDoc(collection(db, col, id), data);
+  await setDoc(collection(db, col, id), data, { merge: true });
 };
 
 const deleteOne = async (col, id) => {

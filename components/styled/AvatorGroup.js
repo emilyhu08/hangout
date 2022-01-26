@@ -1,6 +1,7 @@
 import { AntDesignOutlined, UserOutlined } from '@ant-design/icons';
 import { Avatar, Tooltip } from 'antd';
 import tw from 'tailwind-styled-components';
+import randomColor from 'utils/randomColor';
 
 export default function AvatarGroup({ activity }) {
   return (

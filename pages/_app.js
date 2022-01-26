@@ -12,19 +12,8 @@ import { useEffect } from 'react';
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
-  const [user, loading] = useAuthState(auth);
 
   const defaultLayout = router.pathname !== '/login' ? true : false;
-
-  useEffect(() => {
-    if (user) {
-      addOne('users', {
-        name: user.displayName,
-        photoURL: user.photoURL,
-        email: user.email,
-      });
-    }
-  }, [user]);
 
   return (
     <StateProvider initialState={initialState} reducer={reducer}>

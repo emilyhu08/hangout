@@ -30,17 +30,6 @@ const Chat = () => {
 
   const recipientEmail = getRecipientEmail(users, user);
 
-  // const createChat = () => {
-  //   const input = prompt('enter email');
-
-  //   if (!input) return null;
-  //   if (!chatAlreadyExists(input) && input !== user.email) {
-  //     addOne('chats', {
-  //       users: [user.email, input],
-  //     });
-  //   }
-  // };
-
   const router = useRouter();
   const dummy = useRef();
   const messagesRef = collection(db, 'messages');
@@ -49,7 +38,7 @@ const Chat = () => {
     recipientEmail &&
     query(
       messagesRef,
-      // where('users', 'array-contains-any', [user.email, recipientEmail[0]]),
+      // where('email', 'in', [user.email, recipientEmail]),
       orderBy('createdAt'),
       limit(25)
     );
@@ -63,13 +52,17 @@ const Chat = () => {
 
     const { uid, photoURL, email } = user;
 
-    await addDoc(messagesRef, {
-      text: formValue,
-      createdAt: serverTimestamp(),
-      email,
-      uid,
-      photoURL,
-    });
+    await addDoc(
+      messagesRef,
+      {
+        text: formValue,
+        createdAt: serverTimestamp(),
+        email,
+        uid,
+        photoURL,
+      },
+      { merge: true }
+    );
 
     setFormValue('');
     dummy.current.scrollIntoView({ behavior: 'smooth' });
@@ -100,7 +93,7 @@ export default Chat;
 
 const Wrapper = tw.div`flex rounded-3xl`;
 
-const SideBar = tw.div`flex-nowrap flex-col p-5 w-80 bg-white rounded-3xl`;
+const SideBar = tw.div`flex-nowrap flex-col p-5 w-80 bg-white rounded-3xl overflow-y-scroll`;
 
 const Main = tw.div`ml-5 w-full rounded-3xl truncate `;
 
