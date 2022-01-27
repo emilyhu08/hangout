@@ -16,7 +16,7 @@ const Login = () => {
         setDoc(
           usersRef,
           {
-            name: result.user.displayName,
+            displayName: result.user.displayName,
             photoURL: result.user.photoURL,
             email: result.user.email,
           },
