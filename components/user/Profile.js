@@ -1,19 +1,25 @@
 import { Descriptions } from 'antd';
 import { db } from 'firebase-config';
-import { collection } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
 import { useRouter } from 'next/router';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { useEffect, useState } from 'react';
 
 const Profile = () => {
   const router = useRouter();
   const id = router.query.id;
-  const userRef = collection(db, 'users');
-  const [users] = useCollectionData(userRef);
-  const user =
-    users &&
-    users.find((user) => {
-      return user.uid === id;
-    });
+  const userRef = id && doc(db, 'users', id);
+
+  const [user, setUser] = useState();
+
+  useEffect(() => {
+    userRef &&
+      getDoc(userRef).then((user) => {
+        if (user.exists()) {
+          setUser(user.data());
+        }
+      });
+  }, [id]);
 
   const userName = user?.displayName.split(' ');
 
