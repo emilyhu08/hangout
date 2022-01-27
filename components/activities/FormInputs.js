@@ -1,4 +1,4 @@
-import { Button, DatePicker, Form, Input } from 'antd';
+import { DatePicker, Form, Input } from 'antd';
 import { addOne, storage } from 'firebase-config';
 import { getDownloadURL, ref, uploadBytes, uploadBytesResumable } from 'firebase/storage';
 import moment from 'moment';
@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import ImgUpload from '../styled/ImgUpload';
 import { auth } from '/firebase-config';
+import tw from 'tailwind-styled-components';
 
 const layout = {
   labelCol: {
@@ -148,3 +149,5 @@ const FormInputs = ({ handleClose }) => {
 };
 
 export default FormInputs;
+
+const Button = tw.button`bg-transparent hover:bg-slate-500 text-slate-700 font-semibold hover:text-white py-2 px-4 border border-slate-700 hover:border-transparent rounded`;

@@ -34,8 +34,9 @@ const Login = () => {
         backgroundImage: `url(
           'https://firebasestorage.googleapis.com/v0/b/hangout-28976.appspot.com/o/activities%2Fwowpatterns-export%20(3).png?alt=media&token=d323db7b-ce6b-45a0-b9f2-723e0ff4c7c4'
         )`,
-        backgroundSize: '200px 200px',
+        backgroundSize: '180px 180px',
         backgroundColor: '#374151',
+        backgroundPosition: 'center',
       }}>
       <Box>
         <Logo

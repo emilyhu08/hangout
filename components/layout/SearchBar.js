@@ -7,10 +7,11 @@ const SearchBar = () => {
 
   const [{ search }, dispatch] = useStateValue();
 
-  const onSearch = (value) => {
+  const handleChange = (e) => {
+    console.log(e.target.value);
     dispatch({
       type: 'ADD_TO_SEARCH',
-      item: value,
+      item: e.target.value,
     });
   };
 
@@ -18,7 +19,7 @@ const SearchBar = () => {
     <Search
       className='search'
       placeholder='input search text'
-      onSearch={onSearch}
+      onChange={handleChange}
       style={{ width: 400 }}
     />
   );

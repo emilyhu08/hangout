@@ -56,12 +56,7 @@ const Activity = ({ activity }) => {
       <Delete>
         <CloseOutlined onClick={handleDelete} />
       </Delete>
-      <Modal
-        visible={isVisible}
-        onCancel={handleClose}
-        title={activity.activity}
-        footer={null}
-        centered>
+      <Modal visible={isVisible} onCancel={handleClose} footer={null} centered>
         <ActivityDetail
           handleClose={handleClose}
           handleJoin={handleJoin}
@@ -75,11 +70,11 @@ const Activity = ({ activity }) => {
 
 export default Activity;
 
-const Wrapper = tw.div`relative card rounded m-2 p-2 bg-white  shadow-md  hover:shadow-lg hover:scale-105`;
+const Wrapper = tw.div`relative card rounded m-2 p-2 bg-white shadow-md hover:shadow-lg hover:scale-105`;
 
 const Image = tw.img`object-cover h-40 w-auto cursor-pointer`;
 
-const Title = tw.div`text-md mt-1 mb-1 truncate`;
+const Title = tw.div`text-lg mt-1 mb-1 truncate`;
 
 const Content = tw.div`text-xs mt-2 mb-2`;
 

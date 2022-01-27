@@ -34,8 +34,6 @@ const SideBar = () => {
         if (snap.exists()) {
           let recipientEmail = snap.data().email;
 
-          console.log(!chatAlreadyExists(recipientEmail));
-
           if (
             !chatAlreadyExists(recipientEmail) &&
             recipientEmail &&

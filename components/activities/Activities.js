@@ -14,7 +14,7 @@ const Activities = ({ activities }) => {
   useEffect(() => {
     if (search.length) {
       let searched = activities.filter((activity) => {
-        return activity.data().activity.includes(search);
+        return activity.data().activity.toUpperCase().includes(search.toUpperCase());
       });
       setFilterActivities(searched);
     } else {

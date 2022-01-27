@@ -101,13 +101,13 @@ const Wrapper = tw.div`flex justify-between items-center mt-3 mb-6`;
 
 const UserInfo = tw.div`flex justify-between items-center`;
 
-const Logo = tw.img`flex ml-3 w-20 cursor-pointer`;
+const Logo = tw.img`flex-none ml-3 w-20 cursor-pointer`;
 
 const Search = tw.input`basis-1/4 h-8 w-100 border rounded-full`;
 
-const Avatar = tw.img`flex w-8 h-8 rounded-full mr-3`;
+const Avatar = tw.img`flex-none w-8 h-8 rounded-full mr-3`;
 
-const Name = tw.p`mr-5 text-slate-700`;
+const Name = tw.p`flex-none mr-5 text-slate-700`;
 
 const Login = tw.button`ml-3 mr-3 font-semibold`;
 
