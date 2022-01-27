@@ -1,10 +1,10 @@
 import { addOne, auth, db } from 'firebase-config';
-import { collection, query, where, getDoc, doc, setDoc } from 'firebase/firestore';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { useCollection, useCollectionData } from 'react-firebase-hooks/firestore';
+import { collection, doc, getDoc, query, where } from 'firebase/firestore';
 import { useRouter } from 'next/router';
-import Room from './Room';
 import { useEffect } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { useCollection } from 'react-firebase-hooks/firestore';
+import Room from './Room';
 
 const SideBar = () => {
   const [user] = useAuthState(auth);
@@ -17,14 +17,6 @@ const SideBar = () => {
   const recipientId = router.query.id;
 
   const recipientRef = recipientId && doc(db, 'users', recipientId);
-
-  // const recipientSnap =
-  //   recipientRef &&
-  //   getDoc(recipientRef).then((snap) => {
-  //     if (snap.exists()) {
-  //       return snap.data().email;
-  //     }
-  //   });
 
   const [chatsSnapshot] = useCollection(queryEmail);
 

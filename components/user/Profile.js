@@ -1,9 +1,8 @@
-import { Badge, Descriptions } from 'antd';
-import { doc, collection, query, where } from 'firebase/firestore';
+import { Descriptions } from 'antd';
 import { db } from 'firebase-config';
-import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { collection } from 'firebase/firestore';
 import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 const Profile = () => {
   const router = useRouter();
@@ -16,7 +15,7 @@ const Profile = () => {
       return user.uid === id;
     });
 
-  const userName = user?.name.split(' ');
+  const userName = user?.displayName.split(' ');
 
   return (
     <>

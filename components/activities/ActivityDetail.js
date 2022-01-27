@@ -1,11 +1,10 @@
 import moment from 'moment';
-import React from 'react';
-import tw from 'tailwind-styled-components';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import React from 'react';
+import tw from 'tailwind-styled-components';
 
 const ActivityDetail = ({ activity, handleClose, redirectToChat, handleJoin }) => {
-  const router = useRouter();
   return (
     <>
       <Title>{activity.activity}</Title>
@@ -15,15 +14,15 @@ const ActivityDetail = ({ activity, handleClose, redirectToChat, handleJoin }) =
         <Info>
           <div>{activity.category}</div>
           <Date>
-            <b>Event Date: </b>
+            <Semi>Event Date: </Semi>
             {moment(activity.eventDate).format('LL')}
           </Date>
           <Date>
-            <b>Event Time: </b>
+            <Semi>Event Time: </Semi>
             {moment(activity.eventDate).format('LT')}
           </Date>
           <>
-            <b>Description: </b>
+            <Semi>Description: </Semi>
           </>
           <Description>{activity.description}</Description>
           <div className='flex items-center'>
@@ -67,12 +66,14 @@ const Join = tw.button`bg-transparent hover:bg-slate-500 text-slate-700 font-sem
 
 const Message = tw.button`bg-transparent hover:bg-slate-500 text-slate-700 font-semibold hover:text-white py-2 px-4 border border-slate-700 hover:border-transparent rounded`;
 
-const Date = tw.div`flex text-s`;
+const Date = tw.div`flex text-s font-light`;
 
-const Description = tw.div`flex-none h-10 text-s mb-3 overflow-y-scroll`;
+const Description = tw.div`flex-none font-light h-10 text-s mb-3 overflow-y-scroll`;
 
-const Ago = tw.div`text-xs`;
+const Ago = tw.div`text-xs font-light`;
 
-const Title = tw.div`text-2xl bold`;
+const Title = tw.div`text-xl mb-1 font-medium`;
 
 const HR = tw.hr`mb-5`;
+
+const Semi = tw.div`font-medium`;

@@ -7,6 +7,6 @@ module.exports = {
     storageBucket: process.env.storageBucket,
     messagingSenderId: process.env.messagingSenderId,
     appId: process.env.appId,
-    messageToken: process.env.messageToken
+    messageToken: process.env.messageToken,
   },
 };

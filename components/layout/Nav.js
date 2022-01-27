@@ -1,13 +1,12 @@
-import { Dropdown, Menu } from 'antd';
+import { Dropdown, Menu, message } from 'antd';
 import { auth } from 'firebase-config';
 import { signOut } from 'firebase/auth';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
-import { useStateValue } from 'store/StateProvider';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import tw from 'tailwind-styled-components';
 import SearchBar from './SearchBar';
-import { useAuthState } from 'react-firebase-hooks/auth';
 
 const Nav = () => {
   const router = useRouter();
@@ -20,6 +19,7 @@ const Nav = () => {
   };
 
   const handleSignOut = () => {
+    message.success('Signed Out!');
     signOut(auth);
     router.push('/');
   };
@@ -75,6 +75,7 @@ const Nav = () => {
                 'https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max'
               }
               alt='avatar'
+              className='cursor-pointer'
             />
           </Dropdown>
         </UserInfo>
@@ -102,8 +103,6 @@ const Wrapper = tw.div`flex justify-between items-center mt-3 mb-6`;
 const UserInfo = tw.div`flex justify-between items-center`;
 
 const Logo = tw.img`flex-none ml-3 w-20 cursor-pointer`;
-
-const Search = tw.input`basis-1/4 h-8 w-100 border rounded-full`;
 
 const Avatar = tw.img`flex-none w-8 h-8 rounded-full mr-3`;
 

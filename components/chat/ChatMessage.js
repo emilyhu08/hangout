@@ -1,26 +1,45 @@
 import { auth } from 'firebase-config';
+import { useRouter } from 'next/router';
 import tw from 'tailwind-styled-components';
 
 const ChatMessage = ({ message }) => {
+  const router = useRouter();
   const { text, uid, photoURL, email } = message;
 
-  const messageClass =
-    auth.currentUser?.uid && (uid === auth.currentUser.uid ? 'sent' : 'received');
+  const handleProfile = () => {
+    router.push('/user/' + uid);
+  };
 
   return (
-    <Wrapper>
-      <Avatar
-        src={photoURL || 'https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max'}
-        alt='avatar'></Avatar>
-      <p>{text}</p>
-    </Wrapper>
+    auth.currentUser?.email &&
+    (email === auth.currentUser.email ? (
+      <div className='flex justify-end mb-3'>
+        <Wrapper className='bg-lime-400'>
+          <p>{text}</p>
+        </Wrapper>
+        <Avatar
+          className='ml-3'
+          onClick={handleProfile}
+          src={photoURL || 'https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max'}
+          alt='avatar'></Avatar>
+      </div>
+    ) : (
+      <div className='flex items-center mb-3'>
+        <Avatar
+          className='mr-3'
+          onClick={handleProfile}
+          src={photoURL || 'https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max'}
+          alt='avatar'></Avatar>
+        <Wrapper>
+          <p>{text}</p>
+        </Wrapper>
+      </div>
+    ))
   );
 };
 
 export default ChatMessage;
 
-const Wrapper = tw.div`flex items-center p-2 shadow-md mb-2 rounded-lg `;
+const Wrapper = tw.div`inline-block items-center p-2 shadow-md rounded-lg `;
 
-const Name = tw.div`flex-none truncate`;
-
-const Avatar = tw.img`flex-none w-8 h-8 rounded-full mr-3 cursor-pointer `;
+const Avatar = tw.img`flex-none w-8 h-8 rounded-full cursor-pointer `;

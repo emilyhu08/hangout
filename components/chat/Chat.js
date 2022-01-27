@@ -8,7 +8,6 @@ import {
   serverTimestamp,
   where,
 } from 'firebase/firestore';
-import { useRouter } from 'next/router';
 import React, { useRef, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollection, useCollectionData } from 'react-firebase-hooks/firestore';
@@ -30,7 +29,6 @@ const Chat = () => {
 
   const recipientEmail = getRecipientEmail(users, user);
 
-  const router = useRouter();
   const dummy = useRef();
   const messagesRef = collection(db, 'messages');
   const q =
@@ -93,10 +91,10 @@ export default Chat;
 
 const Wrapper = tw.div`flex rounded-3xl`;
 
-const SideBar = tw.div`flex-nowrap flex-col p-5 w-80 bg-white rounded-3xl overflow-y-scroll`;
+const SideBar = tw.div`flex-none flex-col p-5 w-80 bg-white rounded-3xl overflow-y-scroll`;
 
 const Main = tw.div`ml-5 w-full rounded-3xl truncate `;
 
-const Input = tw.input`h-40 p-10 w-full mt-5 rounded-3xl self-baseline bg-white`;
+const Input = tw.input`h-40 p-10 w-full mt-5 rounded-3xl self-baseline bg-white hover:border-sky-500`;
 
 const Chats = tw.div`h-80 p-10 rounded-3xl self-baseline bg-white overflow-y-scroll`;

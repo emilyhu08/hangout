@@ -1,13 +1,11 @@
-import { CloseOutlined, HeartOutlined, MoreOutlined } from '@ant-design/icons';
-import { Modal } from 'antd';
+import { CloseOutlined } from '@ant-design/icons';
+import { message, Modal } from 'antd';
+import AvatarGroup from 'components/styled/AvatorGroup';
 import { deleteOne } from 'firebase-config';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import tw from 'tailwind-styled-components';
 import ActivityDetail from './ActivityDetail';
-import { message, Button, Space } from 'antd';
-import moment from 'moment';
-import AvatarGroup from 'components/styled/AvatorGroup';
 
 const Activity = ({ activity }) => {
   const router = useRouter();
@@ -70,11 +68,11 @@ const Activity = ({ activity }) => {
 
 export default Activity;
 
-const Wrapper = tw.div`relative card rounded m-2 p-2 bg-white shadow-md hover:shadow-lg hover:scale-105`;
+const Wrapper = tw.div`relative card rounded-md m-2 p-2 bg-white shadow-md hover:shadow-lg hover:scale-105`;
 
 const Image = tw.img`object-cover h-40 w-auto cursor-pointer`;
 
-const Title = tw.div`text-lg mt-1 mb-1 truncate`;
+const Title = tw.div`text-lg mt-1 mb-1 truncate font-medium`;
 
 const Content = tw.div`text-xs mt-2 mb-2`;
 

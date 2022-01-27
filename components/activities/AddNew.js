@@ -1,5 +1,5 @@
 import { PlusCircleFilled } from '@ant-design/icons';
-import { Modal } from 'antd';
+import { Modal, Tooltip } from 'antd';
 import React, { useState } from 'react';
 import tw from 'tailwind-styled-components';
 import FormInputs from './FormInputs';
@@ -17,9 +17,11 @@ const AddNew = () => {
 
   return (
     <div>
-      <Add onClick={showModal}>
-        <PlusCircleFilled />
-      </Add>
+      <Tooltip placement='top' title={'Add an Activity'}>
+        <Add onClick={showModal}>
+          <PlusCircleFilled />
+        </Add>
+      </Tooltip>
       <Modal
         visible={isModalVisible}
         onCancel={handleClose}

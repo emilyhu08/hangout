@@ -1,13 +1,12 @@
 import { DatePicker, Form, Input } from 'antd';
 import { addOne, storage } from 'firebase-config';
-import { getDownloadURL, ref, uploadBytes, uploadBytesResumable } from 'firebase/storage';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import moment from 'moment';
-import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import tw from 'tailwind-styled-components';
 import ImgUpload from '../styled/ImgUpload';
 import { auth } from '/firebase-config';
-import tw from 'tailwind-styled-components';
 
 const layout = {
   labelCol: {
@@ -31,21 +30,9 @@ const validateMessages = {
 };
 /* eslint-enable no-template-curly-in-string */
 
-const { RangePicker } = DatePicker;
-
-const normFile = (e) => {
-  console.log('Upload event:', e);
-
-  if (Array.isArray(e)) {
-    return e;
-  }
-  return e && e.fileList;
-};
-
 const FormInputs = ({ handleClose }) => {
   const [imageList, setImageList] = useState([]);
   const [user] = useAuthState(auth);
-  const router = useRouter();
 
   const onFinish = (values) => {
     imageList.forEach((file) => {
@@ -56,7 +43,6 @@ const FormInputs = ({ handleClose }) => {
   const handleUpload = (file, values) => {
     if (!file) return;
     const storageRef = ref(storage, `/activities/${file.name}`);
-    const uploadTask = uploadBytesResumable(storageRef);
 
     uploadBytes(storageRef, file).then((snapshot) => {
       let images = [];

@@ -36,7 +36,7 @@ const Room = ({ id, users }) => {
 
 export default Room;
 
-const Wrapper = tw.div`flex items-center p-5 shadow-md mb-5 rounded-lg `;
+const Wrapper = tw.div`flex items-center p-5 shadow-md mb-5 rounded-lg hover:shadow-lg hover:scale-105`;
 
 const Name = tw.div`word-break`;
 
