@@ -2,7 +2,6 @@ import { Descriptions } from 'antd';
 import { db } from 'firebase-config';
 import { doc, getDoc } from 'firebase/firestore';
 import { useRouter } from 'next/router';
-import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { useEffect, useState } from 'react';
 
 const Profile = () => {

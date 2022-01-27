@@ -25,17 +25,18 @@ const SideBar = () => {
       getDoc(recipientRef).then((snap) => {
         if (snap.exists()) {
           let recipientEmail = snap.data().email;
-
-          if (
-            !chatAlreadyExists(recipientEmail) &&
-            recipientEmail &&
-            recipientEmail !== auth.currentUser.email
-          ) {
-            console.log('added');
-            addOne('chats', {
-              users: [auth.currentUser.email, recipientEmail],
+          recipientEmail &&
+            chatExists(recipientEmail).then((exist) => {
+              console.log(exist);
+              if (
+                (exist === 0 || exist === undefined) &&
+                recipientEmail !== auth.currentUser.email
+              ) {
+                addOne('chats', {
+                  users: [auth.currentUser.email, recipientEmail],
+                });
+              }
             });
-          }
         }
       });
   }, [recipientId]);
@@ -51,16 +52,26 @@ const SideBar = () => {
     }
   };
 
-  const chatAlreadyExists = (email) =>
-    !!email &&
-    chatsSnapshot?.docs.find(
-      (chat) => chat.data().users.find((user) => user === email)?.length > 0
-    );
+  const chatExists = async (email) => {
+    let count = 0;
+
+    let res = () => {
+      chatsSnapshot?.docs.forEach((chat) => {
+        chat.data().users.forEach((userEmail) => {
+          if (userEmail === email) {
+            count++;
+          }
+        });
+      });
+    };
+
+    return count;
+  };
 
   return (
     <>
       <>
-        <button>Start Chat</button>
+        <button onClick={createChat}>Start Chat</button>
       </>
       {chatsSnapshot?.docs.map((chat) => {
         return <Room key={chat.id} id={chat.id} users={chat.data().users} />;

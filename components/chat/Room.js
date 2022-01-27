@@ -15,7 +15,6 @@ const Room = ({ id, users }) => {
   const [recipientSnapshot] = useCollection(queryUser);
 
   const recipient = recipientSnapshot?.docs?.[0]?.data();
-  const recipientEmail = getRecipientEmail(users, user);
 
   const enterChat = () => {
     router.push(`/chat/${id}`);
@@ -36,7 +35,7 @@ const Room = ({ id, users }) => {
 
 export default Room;
 
-const Wrapper = tw.div`flex items-center p-5 shadow-md mb-5 rounded-lg hover:shadow-lg hover:scale-105`;
+const Wrapper = tw.div`flex items-center p-5 shadow-md mb-5 rounded-lg hover:shadow-lg hover:scale-105 cursor-pointer`;
 
 const Name = tw.div`word-break`;
 
