@@ -13,6 +13,7 @@
     "@next/bundle-analyzer": "^12.0.10",
     "@videsk/tailwind-random-color": "^0.2.0-beta",
     "antd": "^4.18.3",
+    "axios": "^0.25.0",
     "cross-env": "^7.0.3",
     "firebase": "^9.6.3",
     "moment-mini": "^2.24.0",

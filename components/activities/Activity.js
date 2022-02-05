@@ -36,7 +36,7 @@ const Activity = ({ activity }) => {
   // };
 
   const handleDelete = () => {
-    deleteOne('activities', activity.id);
+    deleteOne('activities', activity.id)
   };
 
   return (

@@ -6,9 +6,7 @@ import { useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import tw from 'tailwind-styled-components';
 import { auth } from '/firebase-config';
-import dynamic from 'next/dynamic';
-
-const ImgUpload = dynamic(() => import('../styled/ImgUpload'));
+import ImgUpload from '../styled/ImgUpload';
 
 const layout = {
   labelCol: {
