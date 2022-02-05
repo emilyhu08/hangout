@@ -35,6 +35,10 @@ npm install
 npm run dev
 ```
 
+## Project Status
+
+Full chat functionalities are still in progress
+
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
