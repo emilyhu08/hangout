@@ -2,7 +2,6 @@ import 'antd/dist/antd.css';
 import { signInWithPopup } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { useRouter } from 'next/router';
-import React from 'react';
 import tw from 'tailwind-styled-components';
 import { auth, db, provider } from '/firebase-config';
 
@@ -29,7 +28,7 @@ const Login = () => {
 
   return (
     <div
-      className='grid place-items-center h-screen w-screen bg-repeat'
+      className='grid w-screen h-screen bg-repeat place-items-center'
       style={{
         backgroundImage: `url(
           'https://firebasestorage.googleapis.com/v0/b/hangout-28976.appspot.com/o/activities%2Fwowpatterns-export%20(3).png?alt=media&token=d323db7b-ce6b-45a0-b9f2-723e0ff4c7c4'
@@ -37,7 +36,8 @@ const Login = () => {
         backgroundSize: '180px 180px',
         backgroundColor: '#374151',
         backgroundPosition: 'center',
-      }}>
+      }}
+    >
       <Box>
         <Logo
           src='https://firebasestorage.googleapis.com/v0/b/hangout-28976.appspot.com/o/logos%2Fhangout_lg.svg?alt=media&token=ce17a0a7-f490-4cc8-8175-2501b0bae2d1'

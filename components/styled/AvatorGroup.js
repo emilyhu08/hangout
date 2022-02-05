@@ -1,6 +1,7 @@
 import { AntDesignOutlined, UserOutlined } from '@ant-design/icons';
 import { Avatar, Tooltip } from 'antd';
 import tw from 'tailwind-styled-components';
+
 export default function AvatarGroup({ activity }) {
   return (
     <Wrapper>
@@ -9,7 +10,8 @@ export default function AvatarGroup({ activity }) {
         maxStyle={{
           color: '#f56a00',
           backgroundColor: '#fde3cf',
-        }}>
+        }}
+      >
         <Avatar
           src={
             (activity && activity.userAvatarUrl) ||
@@ -20,7 +22,8 @@ export default function AvatarGroup({ activity }) {
         <Avatar
           style={{
             backgroundColor: '#f56a00',
-          }}>
+          }}
+        >
           K
         </Avatar>
         <Tooltip title='Ant User' placement='top'>

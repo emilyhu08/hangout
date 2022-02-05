@@ -1,5 +1,4 @@
 import { Select } from 'antd';
-import React from 'react';
 
 const Category = () => {
   const { Option } = Select;
@@ -22,7 +21,8 @@ const Category = () => {
         onSearch={onSearch}
         filterOption={(input, option) =>
           option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-        }>
+        }
+      >
         <Option value='sport'>sport</Option>
         <Option value='food'>food</Option>
         <Option value='entertainment'>entertainment</Option>

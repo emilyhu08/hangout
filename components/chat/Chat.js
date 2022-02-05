@@ -8,7 +8,7 @@ import {
   serverTimestamp,
   where,
 } from 'firebase/firestore';
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollection, useCollectionData } from 'react-firebase-hooks/firestore';
 import tw from 'tailwind-styled-components';
@@ -80,7 +80,8 @@ const Chat = () => {
           <Input
             value={formValue}
             onChange={(e) => setFormValue(e.target.value)}
-            placeholder='enter your message here'></Input>
+            placeholder='enter your message here'
+          ></Input>
         </form>
       </Main>
     </Wrapper>

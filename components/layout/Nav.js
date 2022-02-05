@@ -1,50 +1,23 @@
-import { Dropdown, Menu, message } from 'antd';
+import { message } from 'antd';
 import { auth } from 'firebase-config';
 import { signOut } from 'firebase/auth';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import tw from 'tailwind-styled-components';
+import dynamic from 'next/dynamic';
 import SearchBar from './SearchBar';
+
+const ProfileDropdown = dynamic(() => import('./ProfileDropdown'));
 
 const Nav = () => {
   const router = useRouter();
   const [user, loading] = useAuthState(auth);
   const name = user?.displayName.split(' ');
 
-  const handleRedirect = () => {
-    if (user) router.push('/chat/0');
-    else router.push('/login');
-  };
-
-  const handleSignOut = () => {
-    message.success('Signed Out!');
-    signOut(auth);
-    router.push('/');
-  };
-
   const handleLogin = () => {
     router.push('/login');
   };
-
-  const handleProfile = () => {
-    router.push('/user/' + user.uid);
-  };
-
-  const menu = (
-    <Menu>
-      <Menu.Item key='1' onClick={handleProfile}>
-        Profile
-      </Menu.Item>
-      <Menu.Item key='2' onClick={handleRedirect}>
-        Messages
-      </Menu.Item>
-      <Menu.Item key='3' onClick={handleSignOut}>
-        Sign Out
-      </Menu.Item>
-    </Menu>
-  );
 
   return (
     <Wrapper>
@@ -68,16 +41,7 @@ const Nav = () => {
       {user ? (
         <UserInfo>
           <Name>Hi, {name[0]}</Name>
-          <Dropdown overlay={menu}>
-            <Avatar
-              src={
-                (user && user.photoURL) ||
-                'https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max'
-              }
-              alt='avatar'
-              className='cursor-pointer'
-            />
-          </Dropdown>
+          <ProfileDropdown user={user} />
         </UserInfo>
       ) : (
         <>

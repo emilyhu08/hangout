@@ -1,14 +1,11 @@
 import 'antd/dist/antd.css';
 import Layout from 'components/layout/Layout';
-import { auth, addOne } from 'firebase-config';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useAuthState } from 'react-firebase-hooks/auth';
 import reducer, { initialState } from 'store/Reducer';
 import { StateProvider } from 'store/StateProvider';
 import 'styles/globals.css';
 import 'tailwindcss/tailwind.css';
-import { useEffect } from 'react';
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();

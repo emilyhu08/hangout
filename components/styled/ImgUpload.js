@@ -66,7 +66,8 @@ export default class ImgUpload extends React.Component {
           listType='picture-card'
           fileList={fileList}
           onPreview={this.handlePreview}
-          onChange={this.handleChange}>
+          onChange={this.handleChange}
+        >
           {fileList.length >= 8 ? null : uploadButton}
         </Upload>
         <Modal
@@ -74,7 +75,8 @@ export default class ImgUpload extends React.Component {
           title={previewTitle}
           footer={null}
           onCancel={this.handleCancel}
-          centered>
+          centered
+        >
           <Image
             loader={({ src }) => `${src}`}
             src={previewImage}

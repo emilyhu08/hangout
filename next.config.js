@@ -1,4 +1,8 @@
-module.exports = {
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+});
+
+module.exports = withBundleAnalyzer({
   reactStrictMode: true,
   env: {
     apiKey: process.env.apiKey,
@@ -9,4 +13,4 @@ module.exports = {
     appId: process.env.appId,
     messageToken: process.env.messageToken,
   },
-};
+});

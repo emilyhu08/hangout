@@ -1,7 +1,6 @@
 import { auth, db } from 'firebase-config';
 import { collection, query, where } from 'firebase/firestore';
 import { useRouter } from 'next/router';
-import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import tw from 'tailwind-styled-components';
@@ -27,7 +26,8 @@ const Room = ({ id, users }) => {
           recipient?.photoURL ||
           'https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max'
         }
-        alt='avatar'></Avatar>
+        alt='avatar'
+      ></Avatar>
       <Name>{recipient?.displayName}</Name>
     </Wrapper>
   );

@@ -1,5 +1,4 @@
 import { Input } from 'antd';
-import React from 'react';
 import { useStateValue } from '../../store/StateProvider';
 
 const SearchBar = () => {

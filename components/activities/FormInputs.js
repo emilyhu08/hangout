@@ -92,7 +92,8 @@ const FormInputs = ({ handleClose }) => {
           {
             required: true,
           },
-        ]}>
+        ]}
+      >
         <Input allowClear placeholder='activity name' />
       </Form.Item>
       <Form.Item
@@ -104,7 +105,8 @@ const FormInputs = ({ handleClose }) => {
             required: true,
             message: 'Please select date!',
           },
-        ]}>
+        ]}
+      >
         <DatePicker showTime format='YYYY-MM-DD HH:mm' style={{ width: '100%' }} />
       </Form.Item>
       <Form.Item
@@ -114,7 +116,8 @@ const FormInputs = ({ handleClose }) => {
           {
             required: true,
           },
-        ]}>
+        ]}
+      >
         <Input.TextArea
           allowClear
           showCount={true}
@@ -127,7 +130,8 @@ const FormInputs = ({ handleClose }) => {
         wrapperCol={{
           span: 12,
           offset: 10,
-        }}>
+        }}
+      >
         <Button htmlType='submit'>Submit</Button>
       </Form.Item>
     </Form>

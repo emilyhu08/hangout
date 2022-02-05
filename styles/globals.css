@@ -2,10 +2,9 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
+    Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   background-color: rgb(248 250 252);
-
 }
 
 a {
@@ -27,12 +26,13 @@ a {
   position: relative;
 }
 
-.search .ant-input-group > .ant-input:first-child, .ant-input-group-addon:first-child {
+.search .ant-input-group > .ant-input:first-child,
+.ant-input-group-addon:first-child {
   border-radius: 100px;
 }
 
 .ant-input-search > .ant-input-group > .ant-input-group-addon:last-child .ant-input-search-button {
-  background:transparent;
+  background: transparent;
   border: none;
   border-radius: 100px;
   postion: absolute;
@@ -41,7 +41,7 @@ a {
 }
 
 .ant-input-search > .ant-input-group > .ant-input-group-addon:last-child {
-  left:0px;
+  left: 0px;
 }
 
 .ant-btn-primary {

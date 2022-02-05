@@ -1,6 +1,6 @@
 import { PlusCircleFilled } from '@ant-design/icons';
 import { Modal, Tooltip } from 'antd';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import tw from 'tailwind-styled-components';
 import FormInputs from './FormInputs';
 
@@ -28,7 +28,8 @@ const AddNew = () => {
         title='Add An Activity'
         footer={null}
         destroyOnClose={true}
-        centered>
+        centered
+      >
         <FormInputs handleClose={handleClose} />
       </Modal>
     </div>
