@@ -39,7 +39,7 @@ const Nav = () => {
       {user ? (
         <UserInfo>
           <Name>Hi, {name[0]}</Name>
-          <ProfileDropdown user={user} />
+          <ProfileDropdown user={user} auth={auth}/>
         </UserInfo>
       ) : (
         <>

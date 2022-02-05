@@ -1,7 +1,8 @@
-import { Menu, Dropdown, Avatar } from 'antd';
+import { Menu, Dropdown, Avatar, message } from 'antd';
 import { useRouter } from 'next/router';
+import { signOut } from "firebase/auth";
 
-const ProfileDropdown = ({user}) => {
+const ProfileDropdown = ({user, auth}) => {
    const router = useRouter();
    const handleRedirect = () => {
     if (user) router.push('/chat/0');
