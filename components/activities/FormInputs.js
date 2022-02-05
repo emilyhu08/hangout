@@ -1,12 +1,14 @@
 import { DatePicker, Form, Input } from 'antd';
 import { addOne, storage } from 'firebase-config';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import moment from 'moment';
+import moment from 'moment-mini';
 import { useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import tw from 'tailwind-styled-components';
-import ImgUpload from '../styled/ImgUpload';
 import { auth } from '/firebase-config';
+import dynamic from 'next/dynamic';
+
+const ImgUpload = dynamic(() => import('../styled/ImgUpload'));
 
 const layout = {
   labelCol: {

@@ -3,9 +3,10 @@ import { message, Modal } from 'antd';
 import AvatarGroup from 'components/styled/AvatorGroup';
 import { deleteOne } from 'firebase-config';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import tw from 'tailwind-styled-components';
 import ActivityDetail from './ActivityDetail';
+import Image from 'next/image';
 
 const Activity = ({ activity }) => {
   const router = useRouter();
@@ -40,7 +41,17 @@ const Activity = ({ activity }) => {
 
   return (
     <Wrapper>
-      <Image src={activity.imgUrls[0]} alt='activity image' onClick={showModal}></Image>
+      <div className='cursor-pointer'>
+        <Image
+          width={400}
+          height={300}
+          objectFit='cover'
+          src={activity.imgUrls[0]}
+          alt='activity image'
+          onClick={showModal}
+        ></Image>
+      </div>
+
       <Title>{activity.activity}</Title>
       <Content>{activity.category}</Content>
       {/* <Content>Location: {activity.location}</Content> */}
@@ -70,7 +81,7 @@ export default Activity;
 
 const Wrapper = tw.div`relative card rounded-md m-2 p-2 bg-white shadow-md hover:shadow-lg hover:scale-105`;
 
-const Image = tw.img`object-cover h-40 w-auto cursor-pointer`;
+// const Image = tw.img`object-cover h-40 w-auto cursor-pointer`;
 
 const Title = tw.div`text-lg mt-1 mb-1 truncate font-medium`;
 

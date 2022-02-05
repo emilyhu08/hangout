@@ -1,7 +1,6 @@
 import { db } from 'firebase-config';
 import { collection } from 'firebase/firestore';
 import { useCollection } from 'react-firebase-hooks/firestore';
-import tw from 'tailwind-styled-components';
 import Activities from '../components/activities/Activities';
 
 export default function Home() {
@@ -22,5 +21,3 @@ export default function Home() {
 //     },
 //   };
 // }
-
-const Wrapper = tw.div``;

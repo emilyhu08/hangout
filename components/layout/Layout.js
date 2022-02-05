@@ -1,15 +1,12 @@
-import tw from 'tailwind-styled-components';
 import Nav from './Nav';
 
 const Layout = (props) => {
   return (
-    <Wrapper>
+    <div className='ml-10 mr-10'>
       <Nav />
       <main>{props.children}</main>
-    </Wrapper>
+    </div>
   );
 };
 
 export default Layout;
-
-const Wrapper = tw.div`mr-10 ml-10`;

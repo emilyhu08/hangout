@@ -1,7 +1,8 @@
-import moment from 'moment';
+import moment from 'moment-mini';
 import Link from 'next/link';
 import React from 'react';
 import tw from 'tailwind-styled-components';
+import Image from 'next/image';
 
 const ActivityDetail = ({ activity, handleClose, redirectToChat, handleJoin }) => {
   return (
@@ -9,7 +10,17 @@ const ActivityDetail = ({ activity, handleClose, redirectToChat, handleJoin }) =
       <Title>{activity.activity}</Title>
       <HR />
       <Wrapper>
-        <Image src={activity.imgUrls[0]} alt='activity image'></Image>
+        <ImageContainer>
+          {' '}
+          <Image
+            width={400}
+            height={300}
+            objectFit='cover'
+            src={activity.imgUrls[0]}
+            alt='activity image'
+          ></Image>
+        </ImageContainer>
+
         <Info>
           <div>{activity.category}</div>
           <Date>
@@ -53,7 +64,7 @@ export default ActivityDetail;
 
 const Wrapper = tw.div`grid grid-cols-2 gap-4 `;
 
-const Image = tw.img`grid grid-cols-1 object-cover h-40 w-auto`;
+const ImageContainer = tw.div`grid grid-cols-1 object-cover`;
 
 const Avatar = tw.img`flex w-8 h-8 rounded-full mr-3 cursor-pointer`;
 

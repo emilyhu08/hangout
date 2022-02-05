@@ -1,14 +1,12 @@
-import { message } from 'antd';
 import { auth } from 'firebase-config';
-import { signOut } from 'firebase/auth';
-import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import tw from 'tailwind-styled-components';
-import dynamic from 'next/dynamic';
 import SearchBar from './SearchBar';
 
 const ProfileDropdown = dynamic(() => import('./ProfileDropdown'));
+const Link = dynamic(() => import('next/link'));
 
 const Nav = () => {
   const router = useRouter();

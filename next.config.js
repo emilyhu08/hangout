@@ -13,4 +13,7 @@ module.exports = withBundleAnalyzer({
     appId: process.env.appId,
     messageToken: process.env.messageToken,
   },
+  images: {
+    domains: ['firebasestorage.googleapis.com'],
+  },
 });
