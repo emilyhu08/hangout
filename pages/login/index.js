@@ -31,7 +31,7 @@ const Login = () => {
       className='grid w-screen h-screen bg-repeat place-items-center'
       style={{
         backgroundImage: `url(
-          'https://firebasestorage.googleapis.com/v0/b/hangout-28976.appspot.com/o/activities%2Fwowpatterns-export%20(3).png?alt=media&token=d323db7b-ce6b-45a0-b9f2-723e0ff4c7c4'
+          '/bgpattern.png'
         )`,
         backgroundSize: '180px 180px',
         backgroundColor: '#374151',
