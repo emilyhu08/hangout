@@ -1,6 +1,7 @@
 export const initialState = {
   search: '',
   activities: null,
+  emailState: null,
 };
 
 const reducer = (state, action) => {
@@ -15,6 +16,12 @@ const reducer = (state, action) => {
       return {
         ...state,
         activities: action.item,
+      };
+
+    case 'ADD_TO_EMAIL':
+      return {
+        ...state,
+        emailState: action.item,
       };
 
     default:

@@ -3,8 +3,19 @@ import Link from 'next/link';
 import React from 'react';
 import tw from 'tailwind-styled-components';
 import Image from 'next/image';
+import { useStateValue } from '../../store/StateProvider';
 
 const ActivityDetail = ({ activity, handleClose, redirectToChat, handleJoin }) => {
+  const [{ search }, dispatch] = useStateValue();
+
+  const handleEmail = () => {
+    dispatch({
+      type: 'ADD_TO_EMAIL',
+      item: activity.userEmail,
+    });
+    redirectToChat();
+  };
+
   return (
     <>
       <Title>{activity.activity}</Title>
@@ -53,7 +64,7 @@ const ActivityDetail = ({ activity, handleClose, redirectToChat, handleJoin }) =
             </div>
           </div>
         </Info>
-        <Message onClick={redirectToChat}>Message Host</Message>
+        <Message onClick={handleEmail}>Message Host</Message>
         <Join onClick={handleJoin}>Request To Join</Join>
       </Wrapper>
     </>

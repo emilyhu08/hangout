@@ -7,7 +7,6 @@ const SearchBar = () => {
   const [{ search }, dispatch] = useStateValue();
 
   const handleChange = (e) => {
-    console.log(e.target.value);
     dispatch({
       type: 'ADD_TO_SEARCH',
       item: e.target.value,
