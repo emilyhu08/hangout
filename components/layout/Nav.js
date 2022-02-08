@@ -39,7 +39,7 @@ const Nav = () => {
       {user ? (
         <UserInfo>
           <Name>Hi, {name[0]}</Name>
-          <ProfileDropdown user={user} auth={auth}/>
+          <ProfileDropdown user={user} auth={auth} />
         </UserInfo>
       ) : (
         <>
@@ -64,11 +64,9 @@ const Wrapper = tw.div`flex justify-between items-center mt-3 mb-6`;
 
 const UserInfo = tw.div`flex justify-between items-center`;
 
-const Logo = tw.img`flex-none ml-3 w-20 cursor-pointer`;
+const Logo = tw.img`ml-3 w-20 cursor-pointer`;
 
-const Avatar = tw.img`flex-none w-8 h-8 rounded-full mr-3`;
-
-const Name = tw.p`flex-none mr-5 text-slate-700`;
+const Name = tw.div` mr-5 text-slate-700`;
 
 const Login = tw.button`ml-3 mr-3 font-semibold`;
 

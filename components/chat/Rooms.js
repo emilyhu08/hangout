@@ -22,14 +22,19 @@ const SideBar = () => {
 
   const [chatsSnapshot] = useCollection(queryEmail);
 
-  const chatExists = (email) =>
-    !!email &&
-    chatsSnapshot?.docs.find(
+  useEffect(() => {
+    emailState && addRoom();
+  }, []);
+
+  const chatExists = async (email) =>
+    !!chatsSnapshot?.docs.find(
       (chat) => chat.data().users.find((user) => user === email)?.length > 0
     );
 
-  const addRoom = () => {
-    if (emailState && !chatExists(emailState) && emailState !== auth.currentUser.email) {
+  const addRoom = async () => {
+    const exist = await chatExists(emailState);
+
+    if (emailState && !exist && emailState !== auth.currentUser.email) {
       addOne('chats', {
         users: [auth.currentUser.email, emailState],
       });
@@ -52,10 +57,7 @@ const SideBar = () => {
 
   return (
     <>
-      <>
-        <button onClick={createChat}>Start Chat</button>
-        <button onClick={addRoom}>Add Room</button>
-      </>
+      <button onClick={createChat}>Start Chat</button>
       {chatsSnapshot?.docs.map((chat) => {
         return <Room key={chat.id} id={chat.id} users={chat.data().users} />;
       })}
@@ -64,3 +66,13 @@ const SideBar = () => {
 };
 
 export default SideBar;
+export async function getStaticProps() {
+  const res = await fetch('https://.../posts');
+  const posts = await res.json();
+
+  return {
+    props: {
+      posts,
+    },
+  };
+}
